@@ -1,8 +1,10 @@
-from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
-from .models import CustomUser
+from django.contrib.auth import get_user_model
+from django.http import JsonResponse
 import json
+
+User = get_user_model()
 
 @csrf_exempt
 def login_user(request):
@@ -32,9 +34,8 @@ def register_user(request):
             name = data.get('name')
             email = data.get('mail')
             password = data.get('password')
-            date_of_birth = data.get('date_of_birth')
 
-            user = CustomUser.objects.create_user(name=name, email=email, password=password, date_of_birth=date_of_birth)
+            user = User.objects.create_user(ussername=name, email=email, password=password)
             user.save()
             return JsonResponse({'message': 'Usuario creado correctamente'}, status=200)
         except json.JSONDecodeError:
