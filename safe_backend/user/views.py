@@ -1,49 +1,47 @@
-from django.contrib.auth import authenticate, login, logout
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import get_user_model
-from django.http import JsonResponse
-import json
+from django.contrib.auth import get_user_model, login, logout
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializers import UserRegisterSerializaer, UserLoginSerializer, UserSerializer
+from rest_framework import permissions, status
+from .validations import custom_validation, validate_username, validate_password
 
-User = get_user_model()
+class UserRegister(APIView):
+    permission_classes = (permissions.AllowAny,)
+    def post(self, request):
+        clean_data = custom_validation(request.data)
+        serializer = UserRegisterSerializaer(data=clean_data)
+        if serializer.is_valid(raise_exception=True):
+            user = serializer.create(clean_data)
+            if user:
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
-@csrf_exempt
-def login_user(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            email = data.get('mail')
-            password = data.get('password')
+class UserLogin(APIView):
+    permission_classes = (permissions.AllowAny,)
+    authentication_classes = (SessionAuthentication,)
 
-            user = authenticate(username=email, password=password)
-
-            if user is not None:
-                login(request, user)
-                return JsonResponse({'message': 'Usuario logueado correctamente'}, status=200)
-            else:
-                return JsonResponse({'error': 'El usuario no se encuentra registrado'}, status=400)
-        except json.JSONDecodeError:
-            return JsonResponse({'error': 'Formato de datos equivocado'}, status=400)
-    else:
-        return JsonResponse({'error': "Se esperaba una solicitud POSR"}, status=400)
-    
-@csrf_exempt
-def register_user(request):
-    if request.method == "POST":
-        try:
-            data = json.loads(request.body)
-            name = data.get('name')
-            email = data.get('mail')
-            password = data.get('password')
-
-            user = User.objects.create_user(ussername=name, email=email, password=password)
-            user.save()
-            return JsonResponse({'message': 'Usuario creado correctamente'}, status=200)
-        except json.JSONDecodeError:
-            return JsonResponse({'error': 'Formato de datos equivocado'}, status=400)
+    def post(self, request):
+        data = request.data
+        assert validate_username(data)
+        assert validate_password(data)
+        serializer = UserLoginSerializer(data=data)
+        if serializer.is_valid(raise_exception=True):
+            user = serializer.chek_user(data)
+            login(request, user)
+            return Response(status=status.HTTP_200_OK)
         
-def logout_user(request):
-    logout(request)
-    return JsonResponse({'message': 'Usuario deslogueado correctamente'}, status=200)
-
+class UserLogout(APIView):
+    def get(self, request):
+        logout(request)
+        return Response(status=status.HTTP_200_OK)
     
+class UserView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (SessionAuthentication,)
+
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response({'user': serializer.data}, status=status.HTTP_200_OK)
+
 
