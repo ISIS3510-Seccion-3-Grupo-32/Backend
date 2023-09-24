@@ -23,7 +23,7 @@ class UserLoginSerializer(serializers.Serializer):
         user = authenticate(email=clean_data['email'],
                             password=clean_data['password'])
         if not user:
-            raise ValidationError("user not found")
+            raise serializers.ValidationError('User not found')
         return user
 
 class UserSerializer(serializers.ModelSerializer):
