@@ -1,2 +1,4 @@
 django
+djago-cors-headers
+djangorestframework
 flake8
