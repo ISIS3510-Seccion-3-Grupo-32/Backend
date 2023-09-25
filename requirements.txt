@@ -1,2 +1,5 @@
 django
+django-cors-headers==3.13.0
+djangorestframework==3.14.0
+gunicorn==20.1.0
 flake8
