@@ -88,17 +88,10 @@ WSGI_APPLICATION = 'safe_backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'HOST' : os.environ.get('DB_HOST'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'PORT': 5432,
-        'USER': 'postgres',
-        'CERT' : 'safe_backend.prod-ca-2021.crt',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-DATABASE_ROUTERS = ['safe_backend.routers.CustomRouter']
 
 ## User model
 AUTH_USER_MODEL = 'user_api.AppUser'
