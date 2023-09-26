@@ -90,12 +90,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
+        'HOST' : os.environ.get('DB_HOST'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'PORT': 5432,
         'USER': 'postgres',
-        'PASSWORD': os.getenv("DB_PASSWORD"),
-        'HOST': os.getenv("DB_HOST"),
-        'PORT': '5432',
+        'CERT' : 'safe_backend.prod-ca-2021.crt',
     }
 }
+
+DATABASE_ROUTERS = ['safe_backend.routers.CustomRouter']
 
 ## User model
 AUTH_USER_MODEL = 'user_api.AppUser'
