@@ -10,11 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-import dotenv
 from pathlib import Path
 import os
-
-dotenv.load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -92,10 +89,10 @@ WSGI_APPLICATION = 'safe_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('USER'),
-        'PASSWORD': os.environ.get('POSTGRES_PW'),
-        'HOST': os.environ.get('DB_HOST'),
+        'NAME': 'safego_db',
+        'USER': 'safego_user',
+        'PASSWORD': 'safego3510',
+        'HOST': '10.142.0.4',
         'PORT': 5432,
     }
 }
