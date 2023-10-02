@@ -4,13 +4,17 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
 # Create your models here.
 class AppUserManager(BaseUserManager):
-	def create_user(self, email, password=None):
+	def create_user(self, email, password=None, username=None, birth_date=None):
 		if not email:
 			raise ValueError('An email is required.')
 		if not password:
 			raise ValueError('A password is required.')
+		if not username:
+			raise ValueError('A username is required.')
+		if not birth_date:
+			raise ValueError('A birth date is required.')
 		email = self.normalize_email(email)
-		user = self.model(email=email)
+		user = self.model(email=email, username=username, birth_date=birth_date)
 		user.set_password(password)
 		user.save()
 		return user
