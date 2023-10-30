@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'user_api.apps.UserApiConfig',
     'reports_api.apps.ReportsApiConfig',
+    'analytics.apps.AnalyticsConfig',
 ]
 
 MIDDLEWARE = [
