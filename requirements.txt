@@ -7,3 +7,4 @@ supabase
 psycopg2
 psycopg2-binary
 flake8
+google-cloud-firestore

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import models
 
+
 def get_detailed_user_report(request, report_id):
     report = models.DetailedUserReport.get_from_firestore(report_id)
     if report:

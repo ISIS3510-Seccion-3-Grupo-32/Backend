@@ -7,7 +7,7 @@ from .serializer import CreateReportSerializaer
 
 class CreateReportView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
-    authentication_classes = (SessionAuthentication,)\
+    authentication_classes = (SessionAuthentication,)
     ##
     def post(self, request, format=None):
         data = request.data
