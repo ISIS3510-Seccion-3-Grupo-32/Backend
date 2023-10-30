@@ -1,38 +1,40 @@
-from django.shortcuts import render
-import models
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import permissions
+from . import models
 
+class DetailedUserReportView(APIView):
+    permission_classes = (permissions.AllowAny,)
+    def get(self, request, report_id):
+        report = models.DetailedUserReport.get_from_firestore(report_id)
+        return Response(report)  # Return raw data
 
-def get_detailed_user_report(request, report_id):
-    report = models.DetailedUserReport.get_from_firestore(report_id)
-    if report:
-        return render(request, 'detailed_user_report.html', {'report': report})
-    else:
-        return render(request, 'detailed_user_report.html', {'report': None})
-    
-def get_all_detailed_user_reports(request):
-    reports = models.DetailedUserReport.get_all_from_firestore()
-    return render(request, 'all_detailed_user_reports.html', {'reports': reports})
+class AllDetailedUserReportsView(APIView):
+    permission_classes = (permissions.AllowAny,)
+    def get(self, request):
+        reports = models.DetailedUserReport.get_all_from_firestore()
+        return Response(reports)  # Return raw data
 
-def get_police_report(request, report_id):
-    report = models.PoliceReport.get_from_firestore(report_id)
-    if report:
-        return render(request, 'police_report.html', {'report': report})
-    else:
-        return render(request, 'police_report.html', {'report': None})
-    
-def get_all_police_reports(request):
-    reports = models.PoliceReport.get_all_from_firestore()
-    return render(request, 'all_police_reports.html', {'reports': reports})
+class PoliceReportView(APIView):
+    permission_classes = (permissions.AllowAny,)
+    def get(self, request, report_id):
+        report = models.PoliceReport.get_from_firestore(report_id)
+        return Response(report)  # Return raw data
 
-def get_subject(request, subject_id):
-    subject = models.Subject.get_from_firestore(subject_id)
-    if subject:
-        return render(request, 'subject.html', {'subject': subject})
-    else:
-        return render(request, 'subject.html', {'subject': None})
-    
-def get_all_subjects(request):
-    subjects = models.Subject.get_all_from_firestore()
-    return render(request, 'all_subjects.html', {'subjects': subjects})
+class AllPoliceReportsView(APIView):
+    permission_classes = (permissions.AllowAny,)
+    def get(self, request):
+        reports = models.PoliceReport.get_all_from_firestore()
+        return Response(reports)  # Return raw data
 
+class SubjectView(APIView):
+    permission_classes = (permissions.AllowAny,)
+    def get(self, request, subject_id):
+        subject = models.Subject.get_from_firestore(subject_id)
+        return Response(subject)  # Return raw data
 
+class AllSubjectsView(APIView):
+    permission_classes = (permissions.AllowAny,)
+    def get(self, request):
+        subjects = models.Subject.get_all_from_firestore()
+        return Response(subjects)  # Return raw data

@@ -21,5 +21,6 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('user_api.urls')),
-    path('health-check/', views.healthCheck)
+    path('health-check/', views.healthCheck),
+    path('analytics/', include('analytics.urls'))
 ]
