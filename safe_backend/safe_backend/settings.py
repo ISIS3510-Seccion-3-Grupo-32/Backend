@@ -93,7 +93,7 @@ DATABASES = {
         'NAME': 'safego_db',
         'USER': 'safego_user',
         'PASSWORD': 'safego3510',
-        'HOST': 'localhost',
+        'HOST': '10.142.0.4',
         'PORT': 5432,
     }
 }
