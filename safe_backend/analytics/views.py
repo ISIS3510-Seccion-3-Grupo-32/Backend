@@ -38,3 +38,9 @@ class AllSubjectsView(APIView):
     def get(self, request):
         subjects = models.Subject.get_all_from_firestore()
         return Response(subjects)  # Return raw data
+    
+class Analytics(APIView):
+    permission_classes = (permissions.AllowAny,)
+    def get(self, request, latitude, longitude):
+        reports = models.Analytics.getClosesCrimeReport(latitude, longitude)
+        return Response(reports)  # Return raw data
