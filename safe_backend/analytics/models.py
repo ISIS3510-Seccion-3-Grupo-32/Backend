@@ -91,3 +91,27 @@ class Subject:
                     'subject': data['Subject']
                 })
         return subjects
+
+class analytics():
+    @staticmethod
+    # Create a funciton that calculates the crime report that is the closest to the location given by the user, this should be consulted from the django database
+    def get_closest_crime_report(latitude, longitude):
+        # Get all the crime reports from the database
+        crime_reports = PoliceReport.get_all_from_firestore()
+        # Create a list of distances between the user and the crime reports
+        distances = []
+        for report in crime_reports:
+            # Calculate the distance between the user and the crime report
+            distance = analytics.get_distance(latitude, longitude, report['record']['latitude'], report['record']['longitude'])
+            # Add the distance to the list
+            distances.append(distance)
+        # Get the index of the closest crime report
+        closest_crime_report_index = distances.index(min(distances))
+        # Return the closest crime report
+        return crime_reports[closest_crime_report_index]
+    
+    @staticmethod
+    def get_distance(latitude1, longitude1, latitude2, longitude2):
+        # Calculate the distance between the user and the crime report
+        distance = ((latitude1 - latitude2)**2 + (longitude1 - longitude2)**2)**(1/2)
+        return distance
