@@ -89,15 +89,16 @@ WSGI_APPLICATION = 'safe_backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'safego_db',
         'USER': 'safego_user',
         'PASSWORD': 'safego3510',
-        'HOST': '10.142.0.4',
+        'HOST': 'localhost',
         'PORT': 5432,
     }
 }
 
+#10.142.0.4
 ## User model
 AUTH_USER_MODEL = 'user_api.AppUser'
 
