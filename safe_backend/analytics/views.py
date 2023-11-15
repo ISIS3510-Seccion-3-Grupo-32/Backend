@@ -42,5 +42,5 @@ class AllSubjectsView(APIView):
 class Analytics(APIView):
     permission_classes = (permissions.AllowAny,)
     def get(self, request, latitude, longitude):
-        reports = models.Analytics.getClosesCrimeReport(latitude, longitude)
+        reports = models.Analytics.get_closest_crime_report(float(latitude), float(longitude))
         return Response(reports)  # Return raw data
