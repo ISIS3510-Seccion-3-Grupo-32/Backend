@@ -2,6 +2,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions
 from . import models
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 class DetailedUserReportView(APIView):
     permission_classes = (permissions.AllowAny,)
@@ -44,3 +47,33 @@ class Analytics(APIView):
     def get(self, request, latitude, longitude):
         reports = models.Analytics.get_closest_crime_report(float(latitude), float(longitude))
         return Response(reports)  # Return raw data
+    
+    @csrf_exempt
+    def post_user_form(request):
+        if request.method == 'POST':
+            try:
+                data = json.loads(request.body)
+                user_id = data.get('user_id')  # Assuming 'user_id' is the key for user ID in the JSON data
+                if user_id is None:
+                    return JsonResponse({'status': 'error', 'message': 'User ID is missing'})
+
+                user_form = models.UserForm(
+                    user_id=user_id,
+                    question1=data['question1'],
+                    answer1=data['answer1'],
+                    question2=data['question2'],
+                    answer2=data['answer2'],
+                    question3=data['question3'],
+                    answer3=data['answer3'],
+                    question4=data['question4'],
+                    answer4=data['answer4'],
+                )
+                user_form.save()
+
+                return JsonResponse({'status': 'success', 'message': 'Form submitted successfully'})
+            except json.JSONDecodeError as e:
+                return JsonResponse({'status': 'error', 'message': 'Invalid JSON data'})
+            except KeyError as e:
+                return JsonResponse({'status': 'error', 'message': f'Missing key in JSON data: {e}'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Invalid request method'})

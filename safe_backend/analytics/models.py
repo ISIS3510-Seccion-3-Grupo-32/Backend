@@ -1,4 +1,5 @@
 import os
+from django.db import models
 from google.cloud import firestore
 from google.cloud.firestore_v1 import GeoPoint
 
@@ -116,3 +117,18 @@ class Analytics():
         # Calculate the distance between the user and the crime report
         distance = ((latitude1 - latitude2)**2 + (longitude1 - longitude2)**2)**(1/2)
         return distance
+    
+
+class UserForm(models.Model):
+    user_id = models.CharField(max_length=255)
+    question1 = models.CharField(max_length=255)
+    answer1 = models.CharField(max_length=255)
+    question2 = models.CharField(max_length=255)
+    answer2 = models.CharField(max_length=255)
+    question3 = models.CharField(max_length=255)
+    answer3 = models.CharField(max_length=255)
+    question4 = models.CharField(max_length=255)
+    answer4 = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"Form - {self.id}"
