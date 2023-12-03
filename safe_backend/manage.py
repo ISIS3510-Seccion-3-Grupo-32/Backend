@@ -2,10 +2,6 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-from typing import Any
-import csv
-from django.core.management.base import BaseCommand
-from analytics.models import UserForm
 
 
 def main():
