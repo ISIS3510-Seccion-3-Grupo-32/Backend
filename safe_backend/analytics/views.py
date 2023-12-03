@@ -53,6 +53,7 @@ class Analytics(APIView):
         if request.method == 'POST':
             try:
                 data = json.loads(request.body)
+                print(data)
 
                 user_form = models.UserForm(
                     question1=data.get('question1'),
