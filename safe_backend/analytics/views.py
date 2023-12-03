@@ -58,7 +58,6 @@ class Analytics(APIView):
                     return JsonResponse({'status': 'error', 'message': 'User ID is missing'})
 
                 user_form = models.UserForm(
-                    user_id=user_id,
                     question1=data['question1'],
                     answer1=data['answer1'],
                     question2=data['question2'],

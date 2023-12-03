@@ -120,7 +120,6 @@ class Analytics():
     
 
 class UserForm(models.Model):
-    user_id = models.CharField(max_length=255)
     question1 = models.CharField(max_length=255)
     answer1 = models.CharField(max_length=255)
     question2 = models.CharField(max_length=255)
