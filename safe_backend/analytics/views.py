@@ -56,6 +56,8 @@ class Analytics(APIView):
                 user_id = data.get('user_id')  # Assuming 'user_id' is the key for user ID in the JSON data
                 if user_id is None:
                     return JsonResponse({'status': 'error', 'message': 'User ID is missing'})
+                
+                print(data)
 
                 user_form = models.UserForm(
                     question1=data['question1'],
