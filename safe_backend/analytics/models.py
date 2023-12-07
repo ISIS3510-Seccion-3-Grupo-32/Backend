@@ -1,5 +1,5 @@
 import os
-import timedelta
+import datetime
 from django.db import models
 from google.cloud import firestore
 from google.cloud.firestore_v1 import GeoPoint
@@ -129,7 +129,7 @@ class UserForm(models.Model):
     answer3 = models.CharField(max_length=255)
     question4 = models.CharField(max_length=255)
     answer4 = models.CharField(max_length=255)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateField(default=datetime.date.today)
 
     def __str__(self):
         return f"Form - {self.id}"

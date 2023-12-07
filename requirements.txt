@@ -7,4 +7,3 @@ psycopg2-binary
 flake8
 google-cloud-firestore
 google-cloud
-timedelta
