@@ -1,4 +1,5 @@
 import os
+import timedelta
 from django.db import models
 from google.cloud import firestore
 from google.cloud.firestore_v1 import GeoPoint
