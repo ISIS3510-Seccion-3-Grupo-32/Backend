@@ -48,7 +48,7 @@ class Analytics(APIView):
         reports = models.Analytics.get_closest_crime_report(float(latitude), float(longitude))
         return Response(reports)  # Return raw data
     
-    def get(self, request):
+    def get_sugg(self, request):
         suggReports = models.Suggestions.get_all_firestore()
         return Response(suggReports)
         

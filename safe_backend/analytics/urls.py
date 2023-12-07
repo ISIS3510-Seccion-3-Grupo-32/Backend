@@ -7,5 +7,5 @@ urlpatterns = [
     path('subject/', views.AllSubjectsView.as_view() , name='getSubjects'),
     path('closest/<latitude>/<longitude>/', views.Analytics.as_view() , name='getClosestCrimeReport'),
     path('userform/', views.Analytics.post_user_form , name='post_user_form'),
-    path('suggestions/', views.Analytics.get_suggestions.as_view() , name='get_suggestions'),
+    path('suggestions/', views.Analytics.get_sugg.as_view() , name='get_suggestions'),
 ]
