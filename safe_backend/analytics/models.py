@@ -135,7 +135,7 @@ class UserForm(models.Model):
         return f"Form - {self.id}"
     
 class Suggestions(models.Model):
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=2000)
 
     @staticmethod
     def get_all_firestore():
