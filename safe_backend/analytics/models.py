@@ -141,6 +141,7 @@ class Suggestions(models.Model):
     def get_all_firestore():
         docs = database.collection('suggReports').stream()
         suggestions = []
+        print(docs)
         for doc in docs:
             data = doc.to_dict()
             suggestion = Suggestions(description=data['description'])
