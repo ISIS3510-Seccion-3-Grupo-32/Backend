@@ -128,6 +128,24 @@ class UserForm(models.Model):
     answer3 = models.CharField(max_length=255)
     question4 = models.CharField(max_length=255)
     answer4 = models.CharField(max_length=255)
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Form - {self.id}"
+    
+class Suggestions(models.Model):
+    description = models.CharField(max_length=255)
+
+    @staticmethod
+    def get_all_firestore():
+        docs = database.collection('suggReports').stream()
+        suggestions = []
+        for doc in docs:
+            data = doc.to_dict()
+            suggestion = Suggestions(description=data['description'])
+            suggestion.save()
+            suggestions.append({
+                'id': suggestion.id,
+                'suggestion': suggestion.description
+            })
+        return suggestions
