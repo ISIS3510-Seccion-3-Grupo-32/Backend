@@ -140,13 +140,18 @@ class Suggestions(models.Model):
     def get_all_firestore():
         docs = database.collection('suggReports').stream()
         suggestions = []
-        print(docs)
+
         for doc in docs:
             data = doc.to_dict()
-            suggestion = Suggestions(description=data['description'])
+            description = data.get('description', '')  # Use get method to avoid KeyError
+
+            # Create a Suggestions object with the retrieved description
+            suggestion = Suggestions(description=description)
             suggestion.save()
+
             suggestions.append({
                 'id': suggestion.id,
                 'suggestion': suggestion.description
             })
+
         return suggestions
