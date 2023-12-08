@@ -110,7 +110,6 @@ class Analytics():
         # Get the index of the closest crime report
         closest_crime_report_index = distances.index(min(distances))
         # Return the closest crime report
-        print(distances[closest_crime_report_index])
         return distances[closest_crime_report_index]
     
     @staticmethod
