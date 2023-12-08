@@ -1,5 +1,1 @@
 id,question1,answer1,question2,answer2,question3,answer3,question4,answer4
-1,SafeNavigation,Mobile Phone,DeviceForReportingACrime,iPad,DeviceForLogin,Mobile Phone,DeviceForSuggestions,Headphones
-2,SafeNavigation,Mobile Phone,DeviceForReportingACrime,Headphones,DeviceForLogin,iPad,DeviceForSuggestions,Headphones
-3,SafeNavigation,Mobile Phone,DeviceForReportingACrime,Mobile Phone,DeviceForLogin,Mobile Phone,DeviceForSuggestions,Headphones
-4,SafeNavigation,Headphones,DeviceForReportingACrime,Mobile Phone,DeviceForLogin,Mobile Phone,DeviceForSuggestions,Mobile Phone
